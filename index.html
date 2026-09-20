@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debit ya Credit? — Trick Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --ink:#1c2b1f;
+    --ledger:#e9e3d0;
+    --ledger-line:#c9c0a4;
+    --paper:#f6f3e8;
+    --debit:#2f5d4f;
+    --debit-bg:#dfe9e0;
+    --credit:#8a3b2b;
+    --credit-bg:#f0ded4;
+    --gold:#a9782f;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    padding:0 0 80px;
+  }
+
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+  header{
+    padding:48px 20px 32px;
+    border-bottom:3px double var(--ink);
+    margin-bottom:36px;
+  }
+  header .wrap{padding:0;}
+  .kicker{
+    font-size:13px;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:clamp(30px,6vw,44px);
+    margin:0 0 10px;
+    line-height:1.1;
+  }
+  header p{
+    margin:0;
+    font-size:16px;
+    color:#4a4a3f;
+    max-width:56ch;
+  }
+
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:24px;
+    margin:0 0 14px;
+  }
+
+  section{margin-bottom:44px;}
+
+  /* The core question trick */
+  .trick-box{
+    background:var(--ledger);
+    border:1px solid var(--ledger-line);
+    border-radius:2px;
+    padding:28px 24px;
+    position:relative;
+  }
+  .trick-box::before{
+    content:"";
+    position:absolute;
+    left:0;top:0;bottom:0;
+    width:5px;
+    background:var(--gold);
+  }
+  .trick-box p{margin:0 0 12px;font-size:16px;}
+  .trick-box p:last-child{margin-bottom:0;}
+  .q{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:19px;
+    color:var(--ink);
+  }
+
+  /* Four category cards */
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-top:20px;
+  }
+  @media (max-width:560px){
+    .grid{grid-template-columns:1fr;}
+  }
+  .card{
+    border-radius:2px;
+    padding:18px 18px 16px;
+    border:1px solid transparent;
+  }
+  .card.debit{background:var(--debit-bg);border-color:#c3d3c6;}
+  .card.credit{background:var(--credit-bg);border-color:#ddc3b6;}
+  .card h3{
+    font-family:'Fraunces',serif;
+    font-size:17px;
+    margin:0 0 6px;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .card.debit h3{color:var(--debit);}
+  .card.credit h3{color:var(--credit);}
+  .tag{
+    font-size:11px;
+    font-weight:700;
+    padding:2px 8px;
+    border-radius:20px;
+    letter-spacing:.02em;
+  }
+  .card.debit .tag{background:var(--debit);color:#fff;}
+  .card.credit .tag{background:var(--credit);color:#fff;}
+  .card p{margin:0;font-size:14.5px;color:#3a3a30;}
+
+  /* Flow / decision steps */
+  .steps{
+    counter-reset:step;
+    margin-top:18px;
+  }
+  .step{
+    display:grid;
+    grid-template-columns:36px 1fr;
+    gap:14px;
+    padding:14px 0;
+    border-top:1px solid var(--ledger-line);
+  }
+  .step:last-child{border-bottom:1px solid var(--ledger-line);}
+  .step-num{
+    counter-increment:step;
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--gold);
+  }
+  .step-num::before{content:counter(step);}
+  .step-body b{color:var(--ink);}
+  .step-body{font-size:15px;}
+  .step-body .ans{
+    display:inline-block;
+    margin-top:4px;
+    font-size:13px;
+    font-weight:700;
+    padding:2px 9px;
+    border-radius:20px;
+  }
+  .ans.d{background:var(--debit-bg);color:var(--debit);}
+  .ans.c{background:var(--credit-bg);color:var(--credit);}
+
+  /* Table */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:16px;
+    font-size:14.5px;
+  }
+  thead th{
+    text-align:left;
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:14px;
+    padding:8px 10px;
+    border-bottom:2px solid var(--ink);
+  }
+  tbody td{
+    padding:9px 10px;
+    border-bottom:1px solid var(--ledger-line);
+  }
+  tbody tr:hover{background:var(--ledger);}
+  .dc{
+    font-weight:700;
+    font-size:13px;
+  }
+  .dc.d{color:var(--debit);}
+  .dc.c{color:var(--credit);}
+
+  .footnote{
+    margin-top:20px;
+    padding:16px 18px;
+    background:var(--ledger);
+    border-left:4px solid var(--gold);
+    font-size:14.5px;
+    color:#4a4a3f;
+  }
+  .footnote b{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="kicker">Accountancy · Class 11 Commerce</div>
+    <h1>Debit ya Credit — Pehchano kaise?</h1>
+    <p>Har item ko yaad karne ki zaroorat nahi. Bas ek chain of questions poochho, aur item khud bata dega ki wo Asset hai, Liability, Expense ya Income — aur usse Debit/Credit side mil jayegi.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <h2>Sabse pehla trick</h2>
+    <div class="trick-box">
+      <p class="q">"Ye cheez humare paas hai / humein milegi — ya humein dena hai / humne khoya hai?"</p>
+      <p><b>Paas hai / milega</b> → Asset ya Expense → <b>Debit</b></p>
+      <p><b>Dena hai / kamaya hai</b> → Liability, Capital ya Income → <b>Credit</b></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4 Categories — ek nazar mein</h2>
+    <div class="grid">
+      <div class="card debit">
+        <h3>Assets <span class="tag">DEBIT</span></h3>
+        <p>Firm ke paas jo cheez hai — Cash, Bank, Furniture, Debtors, Stock, Machinery.</p>
+      </div>
+      <div class="card debit">
+        <h3>Expenses / Losses <span class="tag">DEBIT</span></h3>
+        <p>Jo kharcha hua ya nuksan hua — Salary, Rent Paid, Purchases, Bad Debts, Discount Allowed.</p>
+      </div>
+      <div class="card credit">
+        <h3>Liabilities <span class="tag">CREDIT</span></h3>
+        <p>Firm ko jo dena hai — Creditors, Bank Overdraft, Loan Taken, Outstanding Expenses.</p>
+      </div>
+      <div class="card credit">
+        <h3>Income / Gains + Capital <span class="tag">CREDIT</span></h3>
+        <p>Jo kamaya ya owner ka investment — Sales, Discount Received, Rent Received, Capital.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Confuse ho jaye to — 3 sawal poochho</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <b>Sawal 1 — Ye cheez chhoo sakte ho ya bank/cash mein dikhti hai?</b><br>
+          Haan → Ye ek <b>Asset</b> hai (jaise Furniture, Stock, Cash).
+          <span class="ans d">Debit</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <b>Sawal 2 — Kya ye kisi ko chukana hai (future mein paisa dena hai)?</b><br>
+          Haan → Ye ek <b>Liability</b> hai (jaise Creditors, Loan, Overdraft).
+          <span class="ans c">Credit</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <b>Sawal 3 — Business chalane mein kharch hua, ya business se kamaya?</b><br>
+          Kharch hua → <b>Expense</b> <span class="ans d">Debit</span> &nbsp;|&nbsp; Kamaya → <b>Income</b> <span class="ans c">Credit</span>
+        </div>
+      </div>
+    </div>
+    <div class="footnote">
+      <b>Special case yaad rakho:</b> "Returns" hamesha apne opposite ka ulta hote hain — Purchase Return (Returns Outward) Credit hota hai kyunki ye Purchases ko kam karta hai; Sales Return (Returns Inward) Debit hota hai kyunki ye Sales ko kam karta hai.
+    </div>
+  </section>
+
+  <section>
+    <h2>TS Grewal ke common items — final check</h2>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Category</th><th>Side</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Opening Stock</td><td>Asset</td><td class="dc d">Debit</td></tr>
+        <tr><td>Purchases</td><td>Expense</td><td class="dc d">Debit</td></tr>
+        <tr><td>Purchase Returns (Returns Outward)</td><td>Contra-Expense</td><td class="dc c">Credit</td></tr>
+        <tr><td>Sales</td><td>Income</td><td class="dc c">Credit</td></tr>
+        <tr><td>Sales Returns (Returns Inward)</td><td>Contra-Income</td><td class="dc d">Debit</td></tr>
+        <tr><td>Discount Allowed</td><td>Expense</td><td class="dc d">Debit</td></tr>
+        <tr><td>Discount Received</td><td>Income</td><td class="dc c">Credit</td></tr>
+        <tr><td>Salary / Wages</td><td>Expense</td><td class="dc d">Debit</td></tr>
+        <tr><td>Cash in Hand</td><td>Asset</td><td class="dc d">Debit</td></tr>
+        <tr><td>Cash at Bank</td><td>Asset</td><td class="dc d">Debit</td></tr>
+        <tr><td>Bank Overdraft</td><td>Liability</td><td class="dc c">Credit</td></tr>
+        <tr><td>Creditors</td><td>Liability</td><td class="dc c">Credit</td></tr>
+        <tr><td>Debtors</td><td>Asset</td><td class="dc d">Debit</td></tr>
+        <tr><td>Bad Debts</td><td>Expense/Loss</td><td class="dc d">Debit</td></tr>
+        <tr><td>Capital</td><td>Owner's Equity</td><td class="dc c">Credit</td></tr>
+        <tr><td>Drawings</td><td>Contra-Capital</td><td class="dc d">Debit</td></tr>
+        <tr><td>Carriage Inwards</td><td>Expense</td><td class="dc d">Debit</td></tr>
+        <tr><td>Carriage Outwards</td><td>Expense</td><td class="dc d">Debit</td></tr>
+        <tr><td>Interest Paid</td><td>Expense</td><td class="dc d">Debit</td></tr>
+        <tr><td>Interest Received</td><td>Income</td><td class="dc c">Credit</td></tr>
+        <tr><td>Loan Taken</td><td>Liability</td><td class="dc c">Credit</td></tr>
+        <tr><td>Loan Given</td><td>Asset</td><td class="dc d">Debit</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+</body>
+</html>
